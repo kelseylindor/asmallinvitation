@@ -448,10 +448,12 @@
 
     <form id="signupForm" class="reveal">
       <label for="email" style="position:absolute; left:-9999px;">Email address</label>
-      <input type="email" id="email" name="email" placeholder="your email" required>
+      <input type="email" id="email" name="entry.7535641" placeholder="your email" required>
       <button type="submit">Join</button>
     </form>
     <p class="thanks" id="thanksMsg">You're on the list. See you soon 🌿</p>
+
+    <iframe name="hidden_google_form" id="hidden_google_form" style="display:none;"></iframe>
 
     <p class="form-note reveal">We'll only ever write when it matters.</p>
   </div>
@@ -481,13 +483,22 @@
   }, { threshold: 0.15 });
   els.forEach(el => io.observe(el));
 
-  // demo signup handling — replace action logic with your email provider
+  // signup form — submits to Google Forms silently via hidden iframe
+  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScRJK7VmSnUSh6JyQKhCDqGiqTItBlsCV8kaTiMUm_4WUzh6w/formResponse";
+
   const form = document.getElementById('signupForm');
   const thanks = document.getElementById('thanksMsg');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    form.style.display = 'none';
-    thanks.style.display = 'block';
+
+  form.setAttribute('action', GOOGLE_FORM_ACTION);
+  form.setAttribute('method', 'POST');
+  form.setAttribute('target', 'hidden_google_form');
+
+  form.addEventListener('submit', function(){
+    // let the form actually submit to the hidden iframe (no preventDefault)
+    setTimeout(function(){
+      form.style.display = 'none';
+      thanks.style.display = 'block';
+    }, 400);
   });
 </script>
 
