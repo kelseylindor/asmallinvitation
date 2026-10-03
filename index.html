@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Small Invitation</title>
-<meta name="description" content="flowers. a small invitation. come along.">
+<meta name="description" content="a small invitation to slow down, notice, and stay awhile.">
 <meta property="og:title" content="A Small Invitation">
-<meta property="og:description" content="flowers. a small invitation. come along.">
+<meta property="og:description" content="a small invitation to slow down, notice, and stay awhile.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://asmallinvitation.com">
 <link rel="canonical" href="https://asmallinvitation.com">
@@ -118,6 +118,13 @@
 
   .hero .flower{ color: var(--rose); width: 54px; height:54px; margin-bottom: 34px; }
 
+  .hero-kicker{
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--rose);
+    margin-bottom: 10px;
+  }
+
   .hero-lines{
     font-family: 'Fraunces', serif;
     font-weight: 300;
@@ -182,23 +189,37 @@
     padding-top: 14px;
   }
 
-  /* ---------- ways to join ---------- */
+  /* ---------- ways to join (dropdowns) ---------- */
   .join-list{ list-style:none; margin-top: 44px; }
   .join-list li{
-    display:flex;
-    gap: 22px;
-    align-items:flex-start;
-    padding: 26px 0;
     border-bottom: 1px solid var(--line);
   }
   .join-list li:first-child{ border-top: 1px solid var(--line); }
+
+  .join-list details summary{
+    display:flex;
+    gap: 22px;
+    align-items:center;
+    padding: 24px 0;
+    cursor: pointer;
+    list-style: none;
+    transition: color .3s ease;
+  }
+  .join-list details summary::-webkit-details-marker{ display:none; }
+  .join-list details summary::marker{ content: ""; }
+  .join-list details summary:focus-visible{
+    outline: 2px solid var(--sage);
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
 
   .join-list .icon{
     flex: none;
     width: 30px; height:30px;
     color: var(--sage-deep);
-    margin-top: 4px;
   }
+
+  .join-list .summary-text{ flex: 1; }
 
   .join-list h3{
     font-family:'Fraunces', serif;
@@ -206,11 +227,65 @@
     font-size: 19px;
     margin-bottom: 4px;
     color: var(--ink);
+    transition: color .3s ease;
   }
 
-  .join-list p{
+  .join-list .tagline{
     font-size: 15px;
     color: var(--ink-soft);
+  }
+  .join-list details summary:hover h3{ color: var(--sage-deep); }
+
+  .join-list .chevron{
+    flex: none;
+    width: 18px; height: 18px;
+    color: var(--ink-soft);
+    transition: transform .35s ease, color .3s ease;
+  }
+  .join-list details summary:hover .chevron{ color: var(--rose); }
+  .join-list details[open] .chevron{ transform: rotate(180deg); color: var(--rose); }
+
+  .join-list .detail{
+    /* lines up with the heading: icon width (30) + gap (22) */
+    padding: 0 40px 26px 52px;
+    animation: unfold .45s ease;
+  }
+  .join-list .detail p{
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+  }
+  .join-list .detail p.email-note{
+    border-top: none;
+    padding-top: 10px;
+    font-size: 14px;
+  }
+  .join-list .detail p.email-note.first{
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+  }
+  .join-list .detail p.email-note a{
+    color: var(--sage-deep);
+    border-bottom: 1px solid var(--sage);
+    white-space: nowrap;
+    transition: color .3s ease, border-color .3s ease;
+  }
+  .join-list .detail p.email-note a:hover{ color: var(--rose); border-color: var(--rose); }
+  .join-list .detail p strong{ font-weight: 500; color: var(--ink); }
+  .join-list .detail p.address,
+  .join-list .detail p.desc{
+    border-top: none;
+    padding-top: 4px;
+  }
+  @keyframes unfold{
+    from{ opacity: 0; transform: translateY(-6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .join-list .detail{ animation: none; }
+    .join-list .chevron{ transition: none; }
   }
 
   .kicker{
@@ -219,6 +294,11 @@
     font-size: 21px;
     color: var(--rose);
     margin-bottom: 6px;
+  }
+
+  .kicker.kicker-below{
+    margin-top: 6px;
+    margin-bottom: 0;
   }
 
   h2.section-title{
@@ -259,6 +339,57 @@
     gap: 10px;
     justify-content:center;
     flex-wrap: wrap;
+  }
+
+  .interests{
+    flex-basis: 100%;
+    border: none;
+    margin-top: 18px;
+  }
+  .interests legend{
+    width: 100%;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .chip{ cursor: pointer; }
+  .chip input{
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+  .chip span{
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink-soft);
+    border-radius: 999px;
+    transition: background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .chip small{ font-size: 12px; opacity: .75; }
+  .chip:hover span{ border-color: var(--sage); }
+  .chip input:checked + span{
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+    color: var(--paper-soft);
+  }
+  .chip input:focus-visible + span{
+    outline: 2px solid var(--sage);
+    outline-offset: 2px;
   }
 
   input[type="email"]{
@@ -339,13 +470,16 @@
     <circle cx="60" cy="60" r="5.5"/>
   </svg>
 
+  <p class="hero-kicker">a small invitation</p>
+
   <div class="hero-lines">
-    <span>flowers.</span>
-    <span class="accent">a small invitation.</span>
+    <span>slow down.</span>
+    <span>notice.</span>
+    <span class="accent">stay awhile.</span>
   </div>
 
   <a href="#values" class="scroll-cue">
-    curious? come along
+    this way
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v14M6 13l6 6 6-6"/></svg>
   </a>
 </section>
@@ -395,50 +529,96 @@
 <!-- ============ WAYS TO JOIN ============ -->
 <section id="join-ways">
   <div class="wrap">
-    <p style="text-align:center; font-family:'Fraunces', serif; font-style:italic; font-size:17px; color:var(--ink-soft); margin-bottom:6px;" class="reveal">so it starts small:</p>
-    <p class="kicker reveal">come as you are</p>
-    <h2 class="section-title reveal">other invitations</h2>
+    <h2 class="section-title reveal">so we're creating spaces<br>to do just that.</h2>
+    <p class="kicker kicker-below reveal">come as you are</p>
 
     <ul class="join-list">
       <li class="reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3c1.6 1.6 1.6 4 0 5.6C10.4 7 10.4 4.6 12 3Z"/><path d="M12 3c-1.6 1.6-1.6 4 0 5.6"/><circle cx="12" cy="12" r="2"/><path d="M12 14v7"/></svg>
-        <div>
-          <h3>Flower stand</h3>
-          <p>A little beauty, yours to take.</p>
-        </div>
+        <details>
+          <summary>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3c1.6 1.6 1.6 4 0 5.6C10.4 7 10.4 4.6 12 3Z"/><path d="M12 3c-1.6 1.6-1.6 4 0 5.6"/><circle cx="12" cy="12" r="2"/><path d="M12 14v7"/></svg>
+            <div class="summary-text">
+              <h3>Flower stand</h3>
+              <p class="tagline">A little beauty, yours to take.</p>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="detail">
+            <p><strong>Saturdays</strong> at Gingko Coffee Camper</p>
+            <p class="address">Address: 5629 119th Ave SE, Bellevue, WA 98006</p>
+          </div>
+        </details>
       </li>
       <li class="reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M13 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/><path d="M9 9l2 2-3 9M13 9l1.5 3L18 14l1 6M9 11l4-1 3 2"/></svg>
-        <div>
-          <h3>Walking group</h3>
-          <p>No pace to keep, just each other and open air.</p>
-        </div>
+        <details>
+          <summary>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M13 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/><path d="M9 9l2 2-3 9M13 9l1.5 3L18 14l1 6M9 11l4-1 3 2"/></svg>
+            <div class="summary-text">
+              <h3>Walking group</h3>
+              <p class="tagline">No pace to keep, just each other and open air.</p>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="detail">
+            <p><strong>Coming soon</strong></p>
+            <p class="email-note">We'll let you know when it starts. <a href="#signup" data-pick="walking group">Join the list below &rarr;</a></p>
+          </div>
+        </details>
       </li>
       <li class="reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 20l3-1 11-11a1.5 1.5 0 0 0-3-3L4 16l-1 4Z"/></svg>
-        <div>
-          <h3>Writing circle</h3>
-          <p>A quiet hour, some prompts, a little company.</p>
-        </div>
+        <details>
+          <summary>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 20l3-1 11-11a1.5 1.5 0 0 0-3-3L4 16l-1 4Z"/></svg>
+            <div class="summary-text">
+              <h3>Writing circle</h3>
+              <p class="tagline">A quiet hour, some prompts, a little company.</p>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="detail">
+            <p><strong>Next 4-week group:</strong> Wednesdays, 12&ndash;1pm via Zoom</p>
+            <p class="desc">Oct 21, Oct 28, Nov 4 &amp; Nov 11</p>
+            <p class="email-note">We'll email the details, and how to join. <a href="#signup" data-pick="writing circle">Join the list below &rarr;</a></p>
+          </div>
+        </details>
       </li>
       <li class="reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="4" ry="2.5"/></svg>
-        <div>
-          <h3>Community dinners</h3>
-          <p>A table set for more than we expect.</p>
-        </div>
+        <details>
+          <summary>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="4" ry="2.5"/></svg>
+            <div class="summary-text">
+              <h3>Community dinners</h3>
+              <p class="tagline">A table set for more than we expect.</p>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="detail">
+            <p class="dates">October 20th<br>November 17th<br>December 15th</p>
+            <p class="email-note">We'll email the details, and how to join. <a href="#signup" data-pick="community dinners">Join the list below &rarr;</a></p>
+          </div>
+        </details>
       </li>
       <li class="reveal">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="6" width="18" height="13" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
-        <div>
-          <h3>Letter club</h3>
-          <p>A small note, every so often, sent with care.</p>
-        </div>
+        <details>
+          <summary>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
+            <div class="summary-text">
+              <h3>Letter club</h3>
+              <p class="tagline">A small note, every so often, sent with care.</p>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <div class="detail">
+            <p>Mail worth slowing down for. A quote, a question to sit with, an invitation, a little beauty.</p>
+            <p class="desc">Want one? Join the list and we'll email you to ask where to send it. We only use your address for letters, and never share it.</p>
+            <p class="email-note"><a href="#signup" data-pick="letter club">Join the list below &rarr;</a></p>
+          </div>
+        </details>
       </li>
     </ul>
 
     <p style="text-align:center; margin-top: 44px;">
-      <a href="#signup" class="scroll-cue">this is how you come along ↓</a>
+      <a href="#signup" class="scroll-cue">join the list and we'll send the details ↓</a>
     </p>
 
   </div>
@@ -447,13 +627,23 @@
 <!-- ============ SIGNUP ============ -->
 <section class="signup" id="signup">
   <div class="wrap">
-    <h2 class="section-title reveal">receive occasional letters<br>and invitations.</h2>
-    <p class="sub reveal">Nothing more. No noise — just when there's something worth sharing.</p>
+    <h2 class="section-title reveal">receive occasional notes<br>and invitations.</h2>
+    <p class="sub reveal">Details for each invitation arrive here first. Otherwise, nothing more &mdash; no noise, just when there's something worth sharing.</p>
 
     <form id="signupForm" class="reveal">
       <label for="email" style="position:absolute; left:-9999px;">Email address</label>
       <input type="email" id="email" name="entry.7535641" placeholder="your email" required>
       <button type="submit">Join</button>
+      <fieldset class="interests">
+        <legend>what are you curious about? (optional)</legend>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="entry.1629982466" value="flower stand"><span>flower stand</span></label>
+          <label class="chip"><input type="checkbox" name="entry.1629982466" value="writing circle"><span>writing circle</span></label>
+          <label class="chip"><input type="checkbox" name="entry.1629982466" value="community dinners"><span>community dinners</span></label>
+          <label class="chip"><input type="checkbox" name="entry.1629982466" value="walking group"><span>walking group <small>(coming soon)</small></span></label>
+          <label class="chip"><input type="checkbox" name="entry.1629982466" value="letter club"><span>letter club</span></label>
+        </div>
+      </fieldset>
     </form>
     <p class="thanks" id="thanksMsg">You're on the list. Glad you're here.
       <svg viewBox="0 0 120 120" width="16" height="16" style="vertical-align:-2px; color: var(--rose);" aria-hidden="true">
@@ -515,6 +705,14 @@
       form.style.display = 'none';
       thanks.style.display = 'block';
     }, 400);
+  });
+
+  // links that tick an interest pill on the way down to the signup
+  document.querySelectorAll('a[data-pick]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var box = document.querySelector('.interests input[value="' + a.dataset.pick + '"]');
+      if(box){ box.checked = true; }
+    });
   });
 </script>
 
